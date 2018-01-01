@@ -1,0 +1,981 @@
+\documentclass[10pt,a4paper]{scrartcl}
+
+\usepackage[ngerman]{babel}
+
+\newcommand{\compaqn}{\setlength{\itemsep}{0mm}\setlength{\parskip}{0cm}}%compact itemizes
+
+\input{../Headerfiles/Packages}
+\input{../Headerfiles/Commands}
+\input{../Headerfiles/Titles}
+
+%begin commands
+
+\renewcommand{\L}{\mathscr{L}}
+
+\newcommand{\F}{\mathscr{F}}
+%-------------------------------------------------------------------
+%\linespread{1}
+\renewcommand{\baselinestretch}{1.3}
+%-------------------------------------------------------------------
+\pagestyle{empty}
+\author{GianAndrea Müller, nach der Vorlesung von Prof. Dr.  A. Iozzi}
+\title{Zusammenfassung Analysis III}
+\begin{document}
+\maketitle
+\begin{multicols*}{3}
+\setcounter{tocdepth}{2}
+\tableofcontents
+\end{multicols*}
+ \clearpage
+\begin{multicols*}{3}	%divide page into 3 columns
+	\parindent 0pt %no indent at the first line of a new paragraph
+	\setlength{\columnseprule}{0.5pt}	
+ 	
+	\section{Laplacetransformation}
+	\subsection{Definition}
+	$\L f(s)=\int_0^\infty{f(t)e^{-st}dt=F(s)}$ \hfill $\L f=\L g \Rightarrow f(t)=g(t)$	
+	
+	\subsection{Existenz}
+	
+	\begin{enumerate}
+	\compaqn	
+	\item
+	Stückweise kontinuierlich
+	\item
+	$\exists \lim\limits_{x \rightarrow \infty}{f(x)}\hspace{1ex} \forall x_0$ die Endpunkte sind
+	\item
+	$\exists$ $k,M>0$ $|f(t)|\leqslant Me^{kt}\forall\hspace{1ex} t\geqslant 0$
+	\end{enumerate}
+		
+	\subsection{Eigenschaften}
+	\begin{enumerate}
+	\compaqn
+	\item
+	$\L (\alpha f + \beta g)=\alpha \L (f) + \beta\L (g)$ 
+	
+	$\L^{-1}(\alpha F + \beta G)=\alpha \L^{-1}(F)+\beta\L^{-1}(G)$
+	\item
+	$\lim\limits_{s\rightarrow \infty}{\L f(s)} = 0$
+	\item
+	$sF(s)$ is bounded for $s\rightarrow \infty$
+	\item
+	$\L f$ is continuos $\forall t \in [\alpha ,\beta],\alpha >k$
+	
+	\end{enumerate}
+	
+	\subsection{s-shift}
+	$\L(e^{at}f(t))=F(s-a)\Leftrightarrow e^{at}f(t)=\L^{-1}(F(s-a))$
+	
+	\subsection{t-shift}
+	
+  	$\L(u(t-a)f(t-a))=e^{-as}\L f(s)$
+	
+	$u(t-a)f(t-a)=\L^{-1}(e^{-as}\L f(s))$
+
+	$\L(u(t-a)\cdot 1)=\frac{e^{-as}}{s}$	
+	
+	\subsection{Sifting}
+	
+	$\int_0^\infty{g(t)\delta(t-a)dt}=g(a)$\hfill$\L(\delta(t-a))=e^{-as}$
+	
+	$\L(\delta(t-a)g(t))=g(a)e^{-as}$
+	
+	\subsection{Derivative}
+	
+	$\L(f^{(n)})=s^n\L(f)-\sum_{j=0}^{n-1}{s^{n-1-j}f^{(j)}(0)}$	
+	
+	$\L(f')=s\L(f)-f(0)$ \hfill $\L(f'')=s^2\L(f)-sf(0)-f'(0)$
+	
+	\subsection{Integral}
+	
+	$\L(\int_0^t{f(x)dx})=\frac{1}{s}F(s)$
+	
+	$\L(t\cdot g(t))=-\L '(g(t))=-\frac{d}{ds}\L(g(t))$
+	
+	\subsection{Convolution}
+	
+	$\L(f\ast g)=\L(f)\L(g)$
+	
+	$f\ast g=\int_0^t{f(t')g(t-t')dt'}$
+	
+	$f\ast g=g\ast f$\hfill$f\ast(g+h)=f\ast g+f\ast h$
+	
+	$f\ast 0 = 0$\hfill$f\ast 1 \neq 1$\hfill$f\ast f\geq 0$
+	
+	\subsection{Identitäten}
+	
+	$\L(1)=\frac{1}{s}$\hfill$\L(t^n)=\frac{n!}{s^{n+1}}$\hfill$\L(e^{-at})=\frac{1}{s+a}$
+	
+	$\L(\sin(\omega t))=\frac{\omega}{s^2+\omega^2}$\hfill$\L(\cos(\omega t))=\frac{s}{s^2+\omega^2}$\hfill$\L(\sinh(\omega t))=\frac{w}{s^2-\omega^2}$\hfill$\L(\cosh(\omega t))=\frac{s}{s^2-\omega^2}$ \hfill $\L(\sin^2(\omega t))=\frac{2\omega^2}{s(s^2+4\omega^2)}$
+	
+	\section{Fourier-Reihen}
+	\subsection{Definition}
+	
+	$f(x)=a_0 + \sum_{k=1}^{\infty}{[a_n\cos(\frac{n\pi}{L}x)+b_n\sin(\frac{n\pi}{L}x)]}$ 
+	
+	Periode p $=2L$
+	
+	$a_0=\frac{1}{2L}\int_{-L}^L{f(x)dx}$
+	
+	$a_n=\frac{1}{L}\int_{-L}^L{f(x)\cos(\frac{n\pi}{L}x)dx}$
+	
+	$b_n=\frac{1}{L}\int_{-L}^L{f(x)\sin(\frac{n\pi}{L}x)dx}$
+
+	 
+	
+	$R(f)(x_0)=\frac{1}{2}(f(x_0^-)+f(x_0^+)$\hfill$f(x_0^{\pm})=\lim_{\epsilon\rightarrow 0}{f(x\pm\epsilon)}$
+	
+	\subsection{Komplexe Fourierreihe}
+	
+	$e^{i\omega x}=\cos(\omega x)+ i\cdot \sin(\omega x)$
+	
+	$\cos(t)=\frac{e^{it}+e^{-it} }{2}$\hfill$\sin(t)=\frac{e^{it}-e^{-it}}{2i}$
+	
+	$f(x)=\sum_{n=-\infty}^{\infty}{C_ne^{\frac{in\pi x}{L}}}$\hfill$C_n=\frac{1}{2L}\int_{-L}^{L}{f(x)e^{\frac{-i\pi n x}{L}}dx}$
+	
+	\vspace{2ex}	
+	
+	Umformungen:
+	\vspace{-2ex}
+	\begin{multicols*}{2}
+	
+	a) komplex $\rightarrow$ reell
+	
+	$a_0 = 2\cdot c_0$
+	
+	$a_n = c_n + c_{-n}$
+	
+	$b_n = i (c_n - c_{-})$
+	
+	b) reell $\rightarrow$ komplex
+	
+	$c_0 = \frac{a_0}{2}$
+	
+	$c_n = \frac{1}{2}(a_n - ib_n)$
+	
+	$c_{-n} = \frac{1}{2}(a_n + ib_n)$	
+	
+	\end{multicols*}
+	
+	\subsection{Gerade}
+	
+	$f(x) = f(-x)$
+	
+	$a_0=\frac{1}{L}\int_0^L{f(x)}dx$
+	
+	$a_n=\frac{2}{L}\int_0^L{f(x)\cos(\frac{n\pi x}{L})dx}$
+	
+	$b_n = 0$		
+	
+	\subsection{Ungerade}
+	
+	$f(-x)=-f(x)$
+	
+	$a_{0,n} = 0$
+	
+	$b_n = \frac{2}{L}\int_0^L{f(x)\sin(\frac{n\pi x}{L})dx}$
+	
+	\subsection{Orthogonalität}
+	
+	$\int_{-L,0}^{L,2\pi}{\cos(\frac{n\pi x}{L,\pi})\cos(\frac{m\pi x}{L,\pi})dx}=
+	\begin{cases}
+	\compaqn
+	0 & n\neq m\\
+	L,\pi & n = m \neq 0\\
+	2L,2\pi & n = m = 0
+	\end{cases}$
+	
+	$\int_{-L,0}^{L,2\pi}{\sin(\frac{n\pi x}{L,\pi})\sin(\frac{m\pi x}{L,\pi})dx}=
+	\begin{cases}	
+	0&n\neq m\\
+	L,\pi&n=m\neq 0\\
+	0&n=m=0
+	\end{cases}
+	$
+	
+	$\int_{-L,0}^{L,2\pi}{\sin(\frac{n\pi x}{L,\pi})\cos(\frac{m\pi x}{L,\pi})dx}=0$
+	
+	\subsection{Vereinfachungen}
+	
+	$\cos(n\pi) = (-1)^n$
+	
+	$\cos(n\frac{\pi}{2})=
+	\begin{cases}
+	0&n = 2m-1\\
+	(-1)^n&2m
+	\end{cases}
+	\hfill\forall m=1,2,3,...$
+	 
+	$\sin(n\pi)=0$
+	
+	$\sin(n\frac{\pi}{2})=
+	\begin{cases}
+	0&n=2m\\
+	(-1)^{n+1}&n=2m-1
+	\end{cases}
+	\hfill\forall m=1,2,3,...$
+	
+	\subsection{Fehler der Annäherung durch trigo-Polynom}
+	
+	$E=\int_{-\pi}^\pi{(f-F)^2dx}$
+
+	 
+	
+	Fehler wird kleiner mit steigendem N (Grad des Polynoms)
+	
+	$E^*=\int_{-\pi}^\pi{f^2dx}-\pi[2a_0+\sum_{n=1}^N{(a_n^2+b_n^2)}]$
+	
+	
+	\subsection{Fourierintegral}
+	$f(x)\xrightarrow{L\to\infty}\frac{1}{\pi}\int_0^\infty{A(\omega)\cos(\omega x)+B(\omega)\sin(\omega x)d\omega}$
+	
+	$A(\omega)=\int_{-\infty}^{\infty}{f(v)\cos(\omega v)dv}$
+	
+	$B(\omega)=\int_{-\infty}^{\infty}{f(v)\sin(\omega v)dv}$
+	
+	\subsubsection{falls Gerade}
+	
+	$A(\omega)=\frac{2}{\pi}\int_0^\infty{f(v)\cos(\omega v)dv}$
+	
+	$B(\omega)=0$
+	
+	\subsubsection{falls Ungerade}
+		
+	$A(\omega)=0$
+	
+	$B(\omega)=\frac{2}{\pi}\int_0^\infty{f(v)\sin(\omega v)dv}$
+	
+	\subsubsection{Existenz}
+	
+	\begin{enumerate}
+	\compaqn
+	\item
+	$f(x)$ stückweise stetig auf endlichen Intervallen
+	\item
+	$f(x)$ stetig differentierbar
+	\item
+	$\int_{-\infty}^{\infty}{|f(x)|dx}<\infty$
+	\end{enumerate}
+	
+	dann gilt: $f(x) = FI(f)(x)$
+	
+	an der Sprungstelle $x_0$: 
+	
+	$FI(f)(x_0) = \frac{1}{2}(\lim_{x\rightarrow x_0^-}{f(x)}+\lim_{x\rightarrow x_0^+}{f(x)})$
+	
+	\subsection{Fourier Transform}
+	
+	$\F (f(x))(\omega) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}{f(x)e^{-ix\omega}dx}$
+	
+	$f(x) = \F^{-1}(\F(f(x))(\omega))=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}{\F(f(x))(\omega)e^{ix\omega}d\omega}$
+	
+	 	
+	
+	$\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty{\F(f(x))(\omega)e^{i\omega (A(x,t,\ldots))}d\omega}\Rightarrow f(A(x,t,\ldots))$
+	
+	\subsection{Eigenschaften}
+	
+	\begin{enumerate}
+	
+	\item
+	Linearität
+	
+	$\F(af(x) + bg(x))(\omega)=a\F(f(x))(\omega)+b\F(g(x))(\omega)$
+	\item
+	Ableitung
+	
+	$\F(f'(x))(\omega) = i\omega\F(f(x))(\omega)$
+	
+	$\F(f''(x))(\omega) = -\omega^2\F(f(x))(\omega)$
+	
+	\item
+	$\F(f\ast g)=\sqrt{2\pi}\F(f)\mathscr{G}(g)$
+	
+	$(f\ast g) = \int_{-\infty}^{\infty}{\F(f)\mathscr{G}(g)e^{i\omega x}d\omega}$
+	
+	$wobei: (f\ast g)(x) = \int_{-\infty}^{\infty}{f(p)g(x-p)dp}$
+	
+	\item
+	t-shift
+		
+	$\F(f(x-a))=e^{-ia\omega}\F(f(x))$
+	
+	\item
+	f-shift
+	
+	$\F(f(x))(\omega -a)=\F(e^{iax}f(x))$
+	
+	\end{enumerate}
+	
+	\subsection{Identitäten}
+	
+	$\F(e^{-ax^2})=\frac{1}{\sqrt{2a}}e^{-\frac{\omega^2}{4a}}$
+	
+	$\F(xe^{x^2})=\frac{-i\omega}{2\sqrt{2}}e^{-\frac{\omega^2}{4}}$
+	
+	\section{PDE}
+	
+	\subsection{Wichtige PDE}
+	
+	\begin{tabularx}{\linewidth}{|lXl|}
+	\hline
+	1-D Wellengleichung  & : &	$u_{tt}=c^2u_{xx}$\\
+	1-D Wärmegleichung	& : &	$u_t=c^2u_{xx}$\\
+	2-D Laplacegleichung	& : &	$\Delta u=u_{xx}+u_{yy}=0$\\
+	2-D Poissongleichung	& : &	$u_{xx}+u_{yy}=f(x,y)$\\
+	2-D Wellengleichung	& : &	$u_{tt}=c^2(u_{xx}+u_{yy})$\\
+	2-D Wärmeleitgleichung	& : &	$u_t=c^2(u_{xx}+u_{yy})$\\
+	3-D Laplacegleichung	& : &	$\Delta u=u_{xx}+u_{yy}+u_{zz}=0$\\
+	\hline
+	\end{tabularx}
+	
+	\subsection{Klassifizierung}
+	
+	\begin{tabularx}{\linewidth}{|XXl|}
+	\hline
+	linear  & : & $u_{xy}+u_{z}+u_{tt}=f(x,y,z,t)$\\
+	nichtlinear & : & $u_{x}u_{xy}=f(x,y,z,t)$\\
+	homogen & : & $f(u_{x,y,z},u_{t},\ldots)=0$\\
+	\hline
+	\end{tabularx}
+	
+	Falls $u_t$ oder $u_{tt}$ vor kommt $y=ct$ bzw. $y=c^2t$ einsetzen.	
+	
+	$Au_{xx}+2Bu_{xy}+Cu_{yy}=F(x,a,u,u_{x},u_{y})$.
+	
+	\begin{tabular}{llll}
+	(1)&$AC-B^2<0 \Rightarrow$& Hyperbel &(Wellengleichung)\\
+	(2)&$AC-B^2=0 \Rightarrow$& Parabel &(Hitzegleichung)\\
+	(3)&$AC-B^2>0 \Rightarrow$& Ellipse &(Laplace / Poisson)\\
+	\end{tabular}
+	
+	\subsection{Methode 1: Trennung der Variablen}
+	
+	\begin{enumerate}
+	\compaqn
+	\item
+	Ansatz: $u(t,x) = F(x)G(t)$
+	\item
+	Ansatz einsetzen
+	\item
+	2 ODE eine mit $F(x)$ eine mit $G(x)$
+	\item
+	Lösungen für $G(x)$ und $F(x)$ einsetzen.
+	\end{enumerate}
+	
+	\finn	
+	
+	\subsection{1-D Wellengleichung mit Fourier Reihen }
+	
+	\begin{center}
+	$
+	\begin{cases}
+	u_{tt} = c^2u_{xx}&\\
+	u(0,t)=u(L,t)=0 & t<0\\
+	u(x,0)=f(x)&0\leq x\leq L\\
+	u_t(x,0))=g(x)&0\leq x\leq L\\
+	\end{cases}
+	$
+	\end{center}
+	
+	 
+	
+	$u(x,t) = F(x)G(t) \rightarrow u_{tt} = F \ddot{G}$ and $u_{xx}=F''G$
+
+	 
+	 
+	$F\ddot{G}=c^2F''G \rightarrow \frac{\ddot{G}}{c^2G}=\frac{F''}{F}=k\rightarrow
+	\begin{cases}
+	F''&=kF\\
+	\ddot{G}&=c^2kG
+	\end{cases}
+	$
+	
+	\begin{align*}
+	u(0,t)&=F(0)G(t)=0 \forall t\geq 0 & \Rightarrow F(0) = 0\\	
+	u(L,t)&=F(L)G(t)=0 \forall t\geq 0 & \Rightarrow F(L) = 0
+	\end{align*}
+	
+	wähle: $k<0 \rightarrow F(x) =A\cos(\sqrt{-k}x)+B\sin(\sqrt{-k}x)$
+	
+	aufgrund der Anfangsbedingungen folgt dass $\sqrt{-k}L=n\pi$
+	
+	daraus: $F_n(x)=\sin(\frac{n\pi}{L}x)$
+	\begin{align*}
+	\ddot{G}&=-c^2(\frac{n\pi}{L})^2G\\
+	G_n(t)&=B_n\cos(\frac{cn\pi}{L}t)+B_n^*\sin(\frac{cn\pi}{L}t)
+	\end{align*}
+	allgemeine Lösung durch einsetzen: 
+	
+	$u(x,t)=F(x)G(t)$
+	
+	$u_n(x,t)=(B_n\cos(\frac{cn\pi}{L}t)+B_n^*\sin(\frac{cn\pi}{L}t))\cdot \sin(\frac{n\pi}{L}x)$
+	
+	Fourierreihe 
+	
+	$f(x) = u(x,0) = \sum_{n=1}^\infty{B_n\sin(\frac{n\pi}{L}x)}$
+	
+	\finn
+	
+	\fbox{$B_n=\frac{2}{L}\int_0^L{f(x)\sin(\frac{n\pi}{L}x)dx}$}
+	
+	\finn
+	
+	$g(x)=u_t(x,0)=\sum_{n=1}^\infty{\frac{cn\pi}{L}B_n^*\sin(\frac{n\pi}{L}x)}$
+	\finn	
+	
+	\fbox{$B_n^*=\frac{2}{cn\pi}\int_0^L{g(x)\sin(\frac{n\pi}{L}x)dx}$}
+	
+	\finn	
+	
+	\subsection{D'Alembert-Lösung der Wellengleichung}
+	\begin{center}	
+	$\begin{cases}
+	u_{tt} = c^2u_{xx}\\
+	u(x,0)=f(x)\\
+	u_t(x,0)=g(x)
+	\end{cases}$
+	\end{center}
+	
+	\fbox{$u(x,t)=\frac{1}{2}(f(x+ct)+f(x-ct))+\frac{1}{2c}\int_{x-ct}^{x+ct}{g(v)dv}$}
+	
+	\finn
+	
+	\subsection{Methode der Charakteristiken}
+	\begin{enumerate}
+	
+	\item
+	$Au_{xx}+2Bu_{xy}+Cu_{yy}=F(x,y,u_x,u_y,u)$
+	\item \scshape{Klassifizieren}
+	\item \scshape{Charakteristische Gleichung}
+	
+	$Ay'^2-2By'+C=0$
+	
+	falls A,B,C konstant:
+	
+	$\rightarrow y'_{1,2}=\frac{B\pm\sqrt{B^2-AC}}{A}=\lambda_{1,2}$
+	
+	\item \scshape{Bestimmen der Charakteristiken}
+	
+	aus den beiden Lösungen der charakteristischen Gleichung:	
+	
+	$\int{y_{1,2}'dx}=y\Rightarrow y=\lambda_{1,2}x+c_{1,2}$
+	
+	$\Phi(x,y)=y-\lambda_1x=c_1$
+	
+	$\Psi(x,y)=y-\lambda_2x=c_2$
+	
+	\item \scshape{neue Koordinaten definieren}
+	
+	\begin{tabular}{lll}
+	\hline
+	H:&	$v:=\Phi$&	$w:=\Psi$\\
+	P:&	$v:=x$&		$w:=\Phi=\Psi$\\
+	E:&	$v:=\frac{1}{2}(\Phi+\Psi)$&		$w:=\frac{1}{2i}(\Phi-\Psi)$\\
+	\hline
+	\end{tabular}
+	
+	\item \scshape{Koordinatentransformation} $u(v(x,y),w(x,y))$
+	
+	$\rightarrow$Normalformen:
+	
+	\begin{tabular}{ll}
+	\hline
+	H:&		$u_{vw}=F(v,w,u,u_v,u_w)$\\
+	P:&		$u_{vv}=F(v,w,u,u_v,u_w)$\\
+	E:&		$u_{vv}+u_{ww}=F(v,w,u,u_v,u_w)$\\
+	\hline
+	\end{tabular}
+	
+	\item \scshape{Lösung}
+	
+	\begin{tabular}{ll}
+	\hline
+	H:&		$u(v,w)=f(v)+g(w)-F(v,w,\dots)$\\
+	P:&		$u(v,w)=f(w)v+g(w)-F(v,w,\dots)$\\
+	E:&		$\rightarrow$ Laplacegleichung\\
+	\hline
+	\end{tabular}
+	
+	\item \scshape{Rücktransformation }
+	
+	\end{enumerate}
+	
+	\finn
+	
+	\subsection{Wärmegleichung mit Fourierreihe}
+	
+	\begin{center}
+	$\begin{cases}
+	u_t=c^2u_{xx}\\
+	u(0,t)=u(L,t)=0\\
+	u(x,0)=f(x)
+	\end{cases}$
+	\end{center}
+	
+	\begin{enumerate}
+	\item \scshape{Ansatz} $u(x,t)=F(x)G(t)$
+	\item \scshape{Einsetzen}
+
+	$\frac{\dot{G}}{c^2G}=\frac{F''}{F}=k$
+	
+	\item \scshape{Lösung von F}
+	
+	$k<0$ führt zu
+	
+	$F''=-p^2F$ $\rightarrow$ $F(x)=A\cos(px)+B\sin(px)$
+	
+	$F(0)=F(L)=0$ \dahe $F_n(x)=\sin(\frac{n\pi}{L}x)$ und $p = \frac{n\pi}{L}$
+	
+	\item \scshape{Lösung von G}
+	
+	$G_n(t)=B_ne^{-(\frac{cn\pi}{L})^2t}$
+	
+	\item \scshape{allgemeine Lösung}
+	
+	$u_n(t,x) = B_nsin(\frac{n\pi}{L}x)e^{-(\frac{cn\pi}{L})^2t}$
+	
+	$u(t,x)=\sum_{n=1}^\infty{u_n(x,t)}$
+	
+	$f(x)=u(x,0)=\sum_{n=1}^\infty{B_n\sin(\frac{n\pi}{L}x)}$
+	 
+	$\rightarrow$ \fbox{$B_n=\frac{2}{L}\int_0^L{f(x)\sin(\frac{n\pi}{L}x)dx}$}
+	
+	\end{enumerate}
+	
+	\finn
+	
+	\subsection{2D-Wärmegleichung : Dirichlet Rechteck}
+	
+	\begin{center}
+	$\begin{cases}
+	\nabla^2u=u_{xx}+u_{yy}=0\\
+	u(0,y)=u(a,y)=u(x,0)=0\\
+	u(x,b)=f(x)
+	\end{cases}$
+	\end{center}
+			
+	$R = \{(x,y):=\leq x\leq a, 0\leq y \leq b \}$	
+	
+	\begin{enumerate}
+	\item \scshape{Ansatz} $u(x,t)=F(x)G(y)$
+	\item \scshape{Einsetzen}
+	
+	$F''G+FG''=0$ \hspace{2ex} daraus \hspace{2ex} $\frac{F''}{F}=-\frac{G''}{G}=-k$
+	
+	\item \scshape{Lösung von F}
+	
+	$k<0$ führt zu
+	
+	$F''=-kF$ \dahe $F(x)=A\cos(\sqrt{k}x)+B\sin(\sqrt{k}x)$
+	
+	$F(0)=F(a)=0$ \dahe $F_n(x)=\sin(\frac{n\pi}{a}x)$
+	
+	\item \scshape{Lösung von G}
+	
+	$G_n(y)=A_n^*e^{\frac{n\pi}{a}y}+B_n^*e^{-\frac{n\pi}{a}y}$
+	
+	$G_n(0)=0$ \dahe $A_n^*=-B_n^*$ \dahe $G_n(y)=2A_n^*\sinh(\frac{n\pi}{a}y)$
+	
+	\item \scshape{Allgemeine Lösung}
+	
+	$u_n(x,y)=A_n\sin(\frac{n\pi}{a}x)\sinh(\frac{n\pi}{a}y)$
+	
+	$u(x,y)=\sum_{n=1}^\infty{u_n(x,y)}$
+	
+	$f(x)=u(x,b)$ \dahe \fbox{$A_n=\frac{2}{a \sinh(\frac{n\pi}{a}b)}\int_0^a{f(x)\sin(\frac{n\pi}{a}x)dx}$}
+	
+	\end{enumerate}
+	
+	\finn
+	
+	\subsection{1D-Wärmegleichung : Unendlicher Balken}
+	
+	\begin{center}
+	$\begin{cases}
+	u_t=c^2u_{xx}\\
+	u(x,0)=f(x)
+	\end{cases}$
+	\end{center}
+	
+	\begin{enumerate}
+	\item \scshape{Ansatz} $u(x,t) = F(x)G(t)$
+	
+	\item \scshape{Einsetezn}
+	
+	$\frac{F''}{F}=\frac{1}{c^2}\frac{\dot{G}}{G}=-k$
+	
+	\item \scshape{Lösung von F und G}
+	
+	$k>0$ \dahe $k = p^2$
+	
+	\begin{center}
+	$\begin{cases}
+	F_p(x)=A(p)\cos(px)+B(p)\sin(px)\\
+	G_p(t)=e^{-c^2p^2t}
+	\end{cases}$
+	\end{center}
+	
+	\item \scshape{Allgemeine Lösung}
+	
+	$u(x,t)=\int_0^\infty{[A(p)\cos(px)+B(p)\sin(px)]e^{-c^2p^2t}dp}$
+	
+	Anfangsbed. \dahe Fourierintegral:
+	
+	\dahe $f(x)=\int_0^\infty{[A(p)\cos(px)+B(p)\sin(px)]dp}$
+	
+	$A(p)=\frac{1}{\pi}\int_{-\infty}^\infty{f(v)\cos(pv)dv}$ $=0$
+	
+	$B(p)=\frac{1}{\pi}\int_{-\infty}^\infty{f(v)\sin(pv)dv}$ $=0$
+	
+	$f(v)$ gerade: $A(p)=\frac{2}{\pi}\int_0^\infty{f(v)\cos(pv)dp}$ $B(p)=0$
+	
+	$f(v)$ ungrd.: $B(p)=\frac{2}{\pi}\int_0^\infty{f(v)\sin(pv)dp}$ $A(p)=0$
+	
+	[...]
+	
+	\fbox{$u(x,t)=\frac{1}{2c\sqrt{\pi t}}\int_{-\infty}^\infty{f(v)exp[-(\frac{x-v}{2c\sqrt{t}})^2]dv}$}
+	\end{enumerate}
+	
+	\finn
+	
+	\subsection{Unendlicher Balken: Fouriertransformation}
+	
+	\begin{center}
+	$\begin{cases}
+	u_t=c^2u_{xx}\\
+	u(x,0)=f(x)
+	\end{cases}$
+	
+	\vspace{2ex}
+	
+	\fbox{$\F(f(x))(\omega)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty{f(x)e^{-i\omega x}dx}$}
+	\end{center}
+	
+	\begin{enumerate}
+	\item \scshape{Fouriertransformation nach x anwenden}
+
+	$\begin{rcases*}
+	\F(u_{xx}(x,t))=-w^2\hat{u}(\omega ,t)\\
+	\F(u_t(x,t))=\frac{d}{dt}\hat{u}(\omega ,t)
+	\end{rcases*}
+	\hat{u_t}(\omega ,t)=-c^2\omega^2\hat{u}(\omega,t)$
+	
+	\item \scshape{Lösung der ODE}
+	
+	$\hat{u}(\omega,t)=C(\omega)e^{-c^2\omega^2t}$
+	
+	\item \scshape{Anfangsbedingung:} $\hat{u}(x,0)=\hat{f}(\omega)$
+	
+	$\hat{u}(\omega,t)=\hat{f}(\omega)e^{-c^2\omega^2t}$
+	
+	\item \scshape{Inverse Fouriertransformation}
+	
+	$u(x,t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty{\hat{f}(\omega)e^{-c^2\omega^2t}e^{i\omega x}d\omega}$
+	
+	[...]
+	
+	\fbox{$u(t,x)=\frac{1}{2c\sqrt{\pi t}}\int_{-\infty}^\infty{f(p)exp(-\frac{(x-p)^2}{4c^2t})dp}$}
+
+	\end{enumerate}	
+	
+	\finn	
+	
+	\subsection{2D-Wärmegleichung : Dirichlet Kreisscheibe}
+	
+	\begin{center}
+	$\begin{cases}
+	\nabla^2u=0&	\{(x,y):x^2+y^2<R^2\}\\
+	u = f&	\{(x,y):x^2+y^2=R^2\}
+	\end{cases}$
+	\end{center}
+	
+	\begin{enumerate}
+	\item \scshape{Koordinatentransformation}
+	
+	$
+	\begin{cases}
+	x = r\cos \theta\\
+	y = r\sin \theta	
+	\end{cases}	
+	\Leftrightarrow
+	\begin{cases}
+	r = (x^2+y^2)^{1/2}\\
+	\theta = \arctan \frac{y}{x}
+	\end{cases}
+	$
+	
+	$
+	\begin{cases}
+	u_{rr}+u_{\theta\theta}\frac{1}{r^2}+u_r\frac{1}{r} = 0 \\
+	u(R,\theta)=f(\theta)
+	\end{cases}
+	$
+	
+	\item \scshape{Ansatz} $u(r,\theta)=F(r)G(\theta)$
+	
+	$
+	\begin{cases}
+	r^2F''+rF'-kF=0\\
+	G''+kG=0
+	\end{cases}
+	$
+	
+	$G(0)=G(2\pi)$ und $G'(0)=G'(2\pi)$
+	
+	\item \scshape{Lösung von G} $k = n^2$
+	
+	$G_n(\theta)=A_n \cos(n\theta)+B_n\sin(n\theta)$
+	
+	\item \scshape{Lösung von F} (Eulergleichung)
+	
+	$F_n(r)=P_nr^n$
+	
+	\item \scshape{Allgemeine Lösung}
+	
+	$u_n(r,\theta)=r^n(A_n\cos(n\theta)+B_n\sin(n\theta))$
+	
+	$u(r,\theta)=\sum_{n=0}^\infty{u_n(r,\theta)}$
+	
+	$u(R,\theta)=f(\theta)$\dahe
+	$
+	\begin{cases}
+	A_0&	\frac{1}{2\pi}\int_0^{2\pi}{f(\phi)d\phi}\\
+	A_n&	\frac{1}{R^n\pi}\int_0^{2\pi}{f(\phi)\cos(n\phi)d\phi}\\
+	B_n&	\frac{1}{R^n\pi}\int_0^{2\pi}{f(\phi)\sin(n\phi)d\phi}
+	\end{cases}
+	$
+	
+	$u_r(r,\theta)=\sum_{n=0}^\infty{n\cdot r^{n-1}(A_n\cos(n\theta)+B_n\sin(n\theta))}$
+	
+	\item \scshape{Poissongleichung} durch einsetzen und umformen
+	
+	\fbox{$u(r,\theta)=\frac{1}{2\pi}\int_0^{2\pi}{K(r,\theta,R,\phi)f(\phi)d\phi}$}
+	
+	\fbox{$K(r,\theta,R,\phi):=\frac{R^2-r^2}{R^2-2rR\cos(\theta-\phi)+r^2}$}	
+	
+	\end{enumerate}
+	
+	\finn	
+	
+	\subsection{Mittelwerteigenschaft}
+	Sei $u(x,y)$ harmonisch \dahe $\nabla^2 u = 0$ dann gilt:
+	
+	 	
+	
+	$u(x_0,y_0)=u(0,\theta)=\int_0^{2\pi}{K(0,...)u(a,\phi)d\phi}=\frac{1}{2\pi}\int_0^{2\pi}{u(a,\phi)d\phi}=\frac{1}{2\pi}\int_0^{2\pi}{u(x_0+a\cos(\phi),y_0+a\sin(\phi)d\phi}$
+	
+	 
+	
+	In Worten: Der Wert einer harmonischen Funktion ist gleich dem Durchschnitt der Werte eines Kreises mit beliebigem Radius um $(x_0,y_0)$.
+	
+	\subsection{Maximumswertprinzip}
+	
+	Wenn eine harmonische Funktion einen Maximalwert auf dem Bereich $\mathscr{D}$ hat, ist sie konstant.	
+	
+	\section{A}
+	\subsection{le Logarithmus}
+	$\ln(ab)=\ln(a)+\ln(b)$
+	\subsection{Derivatives}
+	$(ln(x))'=\frac{1}{x}$
+	\subsection{Integrals}	
+	$\int{ln(x)}dx =x\cdot ln(x) -x + C$
+	
+	$\int{e^xdx}=e^x$ \hfill $\int{a^xdx}=\frac{a^x}{\ln(a)}+C$
+	
+	$\int{\frac{1}{\cos^2(x)}dx}=\tan(x)+C$
+	
+	$\int{\frac{1}{\sin^2(x)}dx}=-\cot(x)+C$
+	
+	 
+	
+	$\int{\sin^2(x)dx}=\frac{1}{2}(\sin(x)\cos(x)-x)+C$
+	
+	$\int{\cos^2(x)dx}=\frac{1}{2}(\sin(x)\cos(x)+x)+C$
+	
+	 
+		
+	$\int{\frac{1}{1+x^2}dx}=
+	\begin{cases}
+	\arctan(x)+C_1\\
+	-arccot(x)+C_2
+	\end{cases}$
+	
+	$\int{\frac{1}{1-x^2}}=
+	\begin{cases}
+	$artanh$(x)+C_1=\frac{1}{2}\ln(\frac{1+x}{1-x}+C_1)&	|x|<1\\
+	$arcoth$(x)+C_2=\frac{1}{2}\ln(\frac{x+1}{x-1}+C_2)&	|x|>1
+	\end{cases}$
+	
+	 
+	
+	$\int{\frac{1}{\sqrt{1-x^2}}dx}=
+	\begin{cases}
+	\arcsin(x)+C_1\\
+	-\arccos(x)+C_2
+	\end{cases}	
+	$
+	
+	$\int{\frac{1}{\sqrt{x^2-1}}dx}=$arcosh$(x)+C=\ln|x+\sqrt{x^2-1}|+C$ \hfill $|x|>1$
+	
+	 
+	
+	$\int{\frac{1}{\sinh^2(x)}dx}=-\coth(x)+C$	
+	
+	$\int{\frac{1}{\cosh^2(x)}dx}=\tanh(x)+C$
+	
+	 
+	
+	$\int{\frac{1}{\sqrt{x^2+1}}dx}=$arsinh$(x)+C=\ln|x+\sqrt{x^2+1}|+C$
+		
+	$\int{\frac{1}{x^2+a^2}dx}=\frac{1}{a}\arctan(\frac{x}{a})+C$
+	
+	\subsection{Euleridentität}
+	$\Im(e^{ix})=\sin(x)=\frac{e^{ix}-e^{-ix}}{2i}$ \hfill $e^{i\omega x}=\cos(\omega x)+i\sin(\omega x)$
+	
+	$\Re(e^{ix})=\cos(x)=\frac{e^{ix}+e^{-ix}}{2}$
+	
+	\subsection{Trigonometric Identities}
+	
+	$\sin^2(x)+\cos^2(x)=1$	
+
+	 
+	
+	$\sin(\alpha \pm \beta)=\sin(\alpha)\cos(\beta)\pm \cos(\alpha)\sin(\beta)$
+	
+	$\cos(\alpha \pm \beta)=\cos(\alpha)\cos(\beta)\mp \sin(\alpha)\sin(\beta)$
+	
+	 	
+	
+	$\sin(\alpha)+\sin(\beta) = 2\sin(\frac{\alpha+\beta}{2})\cos(\frac{\alpha-\beta}{2})$
+	
+	$\sin(\alpha)-\sin(\beta)=2\cos(\frac{\alpha+\beta}{2})\sin(\frac{\alpha-\beta}{2})$
+	
+	$\cos(\alpha)+\cos(\beta)=2\cos(\frac{\alpha+\beta}{2})\cos(\frac{\alpha-\beta}{2})$
+	
+	$\cos(\alpha)-\cos(\beta)=2\sin(\frac{\alpha+\beta}{2})\sin(\frac{\alpha-\beta}{2})$
+	
+	 
+	
+	$\sin(2x)=2\sin(x)\cos(x)$
+	
+	$\sin(3x)=3\sin(x)-4\sin^3(x)$
+	
+	$\sin(4x)=\sin(x)(8\cos^3(x)+4\cos(x))$
+	
+	$\sin(5x)=5\sin(x)-20\sin^3(x)+16\sin^5(x)$
+	
+	 
+	
+	$\cos(2x)=\cos^2(x)-\sin^2(x)=1-2\sin^2(x)$
+	
+	$\cos(3x)=4\cos^3(x)-3\cos(x)$
+	
+	$\cos(4x)=8\cos^4(x)-8\cos^2(x)+1$
+	
+	$\cos(5x)=16\cos^5(x)-20\cos^3(x)+5\cos(x)$
+	
+	 
+	
+	$\tan(2x)=\frac{2\tan(x)}{1-\tan^2(x)}$
+	
+	$\tan(3x)=\frac{3\tan(x)-\tan^3(x)}{1-3\tan^2(x)}$
+	
+	 
+	
+	$\sin^2(x)=\frac{1}{2}(1-\cos(2x))$
+	
+	$\sin^3(x)=\frac{1}{4}(3\sin(x)-\sin(3x))$
+	
+	$\sin^4(x)=\frac{1}{8}(\cos(4x)-4\cos(2x)+3)$
+
+	$\sin^n(x)=\frac{1}{2^n}\sum_{k=0}^n{{n\choose k} \cos((n-2k)(x-\frac{\pi}{2}))}$
+	
+	 
+	
+	$\cos^2(x)=\frac{1}{2}(1+\cos(2x))$
+	
+	$\cos^3(x)=\frac{1}{4}(3\cos(x)+\cos(3x))$
+	
+	$\cos^4(x)=\frac{1}{8}(3+4\cos(2x)+cos(4x))$
+	
+	$\cos^n=\frac{1}{2^n}\sum_{k=0}^n{{n\choose k}  \cos((n-2k)x)}$
+	
+	 
+	
+	$\sin(ax)\sin(bx)=\frac{1}{2} (\cos(x(a-b))-\cos(x(a+b)))$
+	
+	$\cos(ax)\cos(bx)=\frac{1}{2} (\cos(x(a-b))+\cos(x(a+b)))$
+	
+	$\sin(ax)\cos(bx)=\frac{1}{2} (\sin(x(a-b))+\sin(x(a+b))$
+	
+	 
+	
+	$\sinh(x)=\frac{e^x-e^{-x}}{2}$ \hfill $\cosh(x)=\frac{e^x+e^{-x}}{2}$
+	
+	$\cosh^2(x)-\sinh^2(x)=1$ \hfill $\cosh(x)+\sinh(x)=e^x$
+	
+	$\sinh(2x)=2\sinh(x)\cosh(x)$
+	
+	$\sinh(3x)=4\sinh^3(x)+3\sinh(x)$
+	
+	$\cosh(2x)=\cosh^2(x)+\sinh^2(x)=2\cosh^2(x)-1$
+	
+	$\cosh(3x)=4\cosh^3(x)-3\cosh(x)$
+	
+	 
+	
+	
+	
+	
+	\section{B}
+	\subsection{Partialbruchzerlegung}
+
+	Gegeben: $\frac{P(x)}{Q(x)}$
+	\begin{enumerate}
+	\item
+	$p=grad(P(x))$ und $q=grad(Q(x))$ 
+	
+	\item
+	falls $p>q>2$ $\rightarrow$ Polynomdivision. $\rightarrow \frac{P(x)}{Q(x)}= A(x)+\frac{R(x)}{Q(x)}$ falls $grad(Q(x))>1\rightarrow$ 3.
+	
+	\item
+	$\frac{P(x)}{\prod_{i}{(x-ai)}\prod_{i}{(x-b_i)^{n_i}}}=$
+
+	 
+	
+	$\sum_{a_i}{\frac{A_i}{(x-a_i)}}+\sum_{i}{\sum_{j = 1}^{n_i}{\frac{B_{i,j}}{(x-b_i)^{j}}}}$
+	
+	\item
+	Koeffizientenvergleich führt zu $A_i$ und $B_{i,j}$
+	\end{enumerate}
+	
+	 
+	
+	\subsection{Faktorisierung}
+	
+	$1 + x^{n+1}=(1+x)\sum_{k=0}^{n}{(-1)^kx^k}$
+	
+	\subsection{Ableitungsregeln}
+	
+	\begin{tabular}{lcl}
+	Quotientenregel	&:&	$(\frac{u}{v})'=\frac{u'v-uv'}{v^2}$\\
+	Umkehrfunktion	&:&	$(f^{-1})'(y)=\frac{1}{f'(f^{-1}(y))}$\\
+	
+	\end{tabular}
+	
+	\subsection{Even / Odd}	
+		
+	\begin{tabularx}{\linewidth}{|X|X|X|X}
+	Even		&Odd		&Even 		&Odd\\
+	$g_1+g_2$&$u_1+u_2$& $u_1'$&$g_1'$ \rule{0pt}{1ex}\\	
+	$g_1\cdot g_2$&$u_1\cdot g_1$&$g_1\circ g_2$&$u_1\circ u_2$\rule{0pt}{4ex}\\
+	$u_1\cdot u_2$&&$g_1\circ u_1$&\\
+	&&$u_1\circ u_2$&\\
+	\end{tabularx}	
+	
+	\end{multicols*}
+
+	
+
+\end{document}
